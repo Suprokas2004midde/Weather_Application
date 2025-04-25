@@ -11,13 +11,15 @@
     />
   </head>
   <body>
-    <div id="card" >
+    <div id="card">
       <div id="search">
         <input type="text" id="input_city" placeholder="Enter the city" />
-        <button id="search_btn"><img src="./images/search.png" alt="" /></button>
+        <button id="search_btn">
+          <img src="./images/search.png" alt="" />
+        </button>
       </div>
 
-      <section id="weather_info">
+      <section id="weather_info" style="display: none">
         <div id="location_date_container">
           <div id="location">
             <span class="material-symbols-outlined"> location_on </span>
@@ -30,7 +32,7 @@
         </div>
 
         <div id="weather_summery_container">
-          <img src="" alt="" id="weather_summary_images"/>
+          <img src="" alt="" id="weather_summary_images" />
           <div id="weather_summery_info">
             <h1 id="temp_txt"></h1>
             <h4 id="description_txt"></h4>
@@ -62,7 +64,22 @@
             </div>
           </div>
         </div>
-        <p id="error-message" class="hidden">City not found. Please try again.</p>
+      </section>
+
+      <section id="search_city_section">
+        <img src="./images/undraw_location-search_nesh.svg" alt="" />
+        <div>
+          <h1>Search City</h1>
+          <h4>Find out the weather conditions of the city</h4>
+        </div>
+      </section>
+
+      <section id="not_found_city_section" style="display: none">
+        <img src="./assets/assets/message/not-found.png" alt="" />
+        <div>
+          <h1>404_Not_Found</h1>
+          <h4>The city you are looking not found</h4>
+        </div>
       </section>
     </div>
     <script src="./script.js"></script>

@@ -61,10 +61,6 @@ img{
     flex-direction: column;
 }
 
-.hidden{
-    display: none;
-}
-
 #location_date_container{
     display: flex;
     justify-content: space-between;
@@ -110,3 +106,30 @@ img{
 .info-txt{
     font-weight: normal;
 }
+
+/* Search City Page */
+#search_city_section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    margin-top: 25%;
+}
+#search_city_section img{
+    height: 180px;
+    width: fit-content;
+}
+#not_found_city_section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    margin-top: 25%;
+}
+#not_found_city_section img{
+    height: 180px;
+    width: fit-content;
+}
+/* End of search city page */
