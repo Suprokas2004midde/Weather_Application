@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=location_on"
+    />
+  </head>
+  <body>
+    <div id="card" >
+      <div id="search">
+        <input type="text" id="input_city" placeholder="Enter the city" />
+        <button id="search_btn"><img src="./images/search.png" alt="" /></button>
+      </div>
+
+      <section id="weather_info">
+        <div id="location_date_container">
+          <div id="location">
+            <span class="material-symbols-outlined"> location_on </span>
+            <h4 id="city_name"></h4>
+          </div>
+          <div>
+            <p id="current_date"></p>
+            <p id="current_day"></p>
+          </div>
+        </div>
+
+        <div id="weather_summery_container">
+          <img src="" alt="" id="weather_summary_images"/>
+          <div id="weather_summery_info">
+            <h1 id="temp_txt"></h1>
+            <h4 id="description_txt"></h4>
+          </div>
+        </div>
+
+        <div class="wind_humidity_summery_container">
+          <div class="condition__item">
+            <img src="./images/humidity.png" alt="" />
+            <div class="condition_info">
+              <h5 class="info-txt">Humidity</h5>
+              <h5 class="info_value" id="humidity_value"></h5>
+            </div>
+          </div>
+
+          <div class="condition__item">
+            <img src="./images/windnew.png" alt="" />
+            <div class="condition_info">
+              <h5 class="info-txt">Wind Speed</h5>
+              <h5 class="info_value" id="wind_value"></h5>
+            </div>
+          </div>
+
+          <div class="condition__item">
+            <img src="./images/hot.png" alt="" />
+            <div class="condition_info">
+              <h5 class="info-txt">Feels Like</h5>
+              <h5 class="info_value" id="Fells_like_temp"></h5>
+            </div>
+          </div>
+        </div>
+        <p id="error-message" class="hidden">City not found. Please try again.</p>
+      </section>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
