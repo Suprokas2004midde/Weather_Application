@@ -8,10 +8,11 @@ A simple and beautiful weather app built using **HTML**, **CSS**, and **JavaScri
 
 ## 🚀 Features
 
-- 🔍 Search weather by city name
+- 🔍 Search the weather by city name
 - 🗓️ Displays current date and day
 - 🌡️ Shows temperature, weather condition, humidity, wind speed, and "feels like" temperature
 - 🌤️ Dynamically changes weather icons based on current weather
+- 🌅 Shows future forecast data of the next 4 days.... 
 - 📱 Responsive design for all devices
 - 🛠️ Error handling for invalid city searches
 
@@ -25,6 +26,10 @@ A simple and beautiful weather app built using **HTML**, **CSS**, and **JavaScri
 - **Vercel** for deployment
 
 ---
+# 🗓️ Project Future Update
+
+- Will add the hourly forecast Details for a single day....
+
 
 ## 📂 Project Structure
 ```bash
