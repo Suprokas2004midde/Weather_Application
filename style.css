@@ -133,3 +133,45 @@ img{
     width: fit-content;
 }
 /* End of search city page */
+
+/* Forecast Section */
+.forecast_item_container{
+    margin-top: 30px;
+    display: flex;
+    gap: 25px;
+    overflow-x: scroll;
+    padding-bottom: 12px;
+}
+
+.forecast_item_container::-webkit-scrollbar{
+    height: 10px;
+}
+
+.forecast_item_container::-webkit-scrollbar-track{
+    background: rgb(0, 0, 0, 0.1);
+    border-radius: 99px;
+}
+
+.forecast_item_container::-webkit-scrollbar-thumb{
+    background: rgb(0, 0, 0, 0.1);
+    border-radius: 99px;
+}
+.forecast_item{
+    min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 10px;
+    border-radius: 12px;
+    background: rgb(255, 255, 255, 0.1);
+    transition: .3s background;
+}
+.forecast_item:hover{
+    background: rgb(255, 255, 255, 0.15);
+}
+.item_weather_summary{
+    width: 35px;
+    height: 35px;
+}
+/* End Of forecast section */
