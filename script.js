@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Forecast
   const forecastcontainer = document.querySelector(".forecast_item_container");
+  const todayforecastcontainer = document.querySelector(
+    ".Today_Forecast_container"
+  );
 
   //Weather-info && Not Found Section $$ Searchh city Section....
   const weatherinfosection = document.getElementById("weather_info");
@@ -20,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchcitysection = document.getElementById("search_city_section");
 
   //Api key....
-  const apiKey = "58bcfad8cadac8b29241407b2f8fdd64";
+  const apiKey = "Your_Api_Key";
 
   const week_day = [
     "Sunday",
@@ -49,6 +52,21 @@ document.addEventListener("DOMContentLoaded", () => {
   function get_weather_icon(id) {
     const date = new Date();
     const hour = date.getHours();
+    if (id <= 232) return "storm.png";
+    if (id <= 321 && hour > 5 && hour < 16) return "drizzle2.png";
+    if (id <= 321 && (hour < 5 || hour > 16)) return "drizzle-night.png";
+    if (id <= 531) return "rain.png";
+    if (id <= 622) return "snow.png";
+    if (id <= 781) return "mist.png";
+    if (id == 800 && hour > 5 && hour < 16) return "sun.png";
+    if (id == 800 && (hour < 5 || hour > 16)) return "moon.png";
+    if (id <= 804 && (hour < 5 || hour > 16)) return "cloudy-night.png";
+    if (id <= 804 && hour > 5 && hour < 16) return "cloudy.png";
+  }
+
+  function get_weather_icon_forecast(id,time) {
+    const hour = time.getHours();
+    
     if (id <= 232) return "storm.png";
     if (id <= 321 && hour > 5 && hour < 16) return "drizzle2.png";
     if (id <= 321 && (hour < 5 || hour > 16)) return "drizzle-night.png";
@@ -110,6 +128,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const today_date = new Date().toISOString().split("T")[0];
 
     forecastcontainer.innerHTML = '';
+    todayforecastcontainer.innerHTML = '';
+
+    forecastdata.list.slice(0,9).forEach(data=>{
+      update_today_forecast_item(data);
+    })
     forecastdata.list.forEach((forecastweather) => {
       if (
         forecastweather.dt_txt.includes(Timetaken) &&
@@ -119,6 +142,27 @@ document.addEventListener("DOMContentLoaded", () => {
   
       }
     });
+  }
+
+  function update_today_forecast_item(forecastdatails){
+    const {dt_txt:date, main, weather} = forecastdatails;
+
+    const datetaken = new Date(date);
+    const timeOption = {
+      hour:'2-digit',
+      minute: '2-digit',
+    }
+
+    const resultTime = datetaken.toLocaleTimeString('en-US',timeOption);
+
+    const todayforecastitem = `
+      <div class="today_forecast_item">
+      <h5 class="item_Time">${resultTime}</h5>
+      <img src="./images/${get_weather_icon_forecast(weather[0].id,datetaken)}" alt="" class="today_icon"/>
+      <h5 class="Today_temp">${Math.round(main.temp)} °C</h5>
+      </div>
+    `;
+    todayforecastcontainer.insertAdjacentHTML('beforeend',todayforecastitem);
   }
 
   function update_Forecast_Items(forecastdatails) {
@@ -134,8 +178,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const forecastItem = `
       <div class="forecast_item">
       <h5 class="item_date">${dateResult}</h5>
-      <img src="./images/${get_weather_icon(
-        weather[0].id
+      <img src="./images/${get_weather_icon_forecast(
+        weather[0].id, datetaken
       )}" alt="weather_icon" class="item_weather_summary">
       <h5 class="item_temp"> ${Math.round(main.temp)} °C</h5>
       <h4 class="item_description">${weather[0].description}</h4>
