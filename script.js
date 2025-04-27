@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchcitysection = document.getElementById("search_city_section");
 
   //Api key....
-  const apiKey = "Your_Api_Key";
+  const apiKey = "58bcfad8cadac8b29241407b2f8fdd64";
 
   const week_day = [
     "Sunday",
