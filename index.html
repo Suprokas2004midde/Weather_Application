@@ -11,6 +11,9 @@
     />
   </head>
   <body>
+    <video autoplay muted loop playsinline id="bg-video">
+      <source src="./Background_Videos/Blue_Sky.mp4" type="video/mp4" />
+    </video>
     <div id="card">
       <div id="search">
         <input type="text" id="input_city" placeholder="Enter the city" />
@@ -82,14 +85,12 @@
         </div>
 
         <div class="forecast_item_container">
-
           <div class="forecast_item">
-            <h5 class="item_date">19, Dec</h5>
+            <h5 class="item_date"></h5>
             <img src="./images/moon.png" alt="weather_icon" class="item_weather_summary">
             <h5 class="item_temp"></h5>
             <h4 class="item_description"></h4>
           </div>
-
         </div>
       </section>
 
@@ -98,6 +99,10 @@
         <div>
           <h1>Search City</h1>
           <h4>Find out the weather conditions of the city</h4>
+        </div>
+        <div class="location_permission">
+          <button type="submit" id="location_btn">Location Permission</button>
+          <h5>Give your location permission for retriving weather data of your location</h5>
         </div>
       </section>
 

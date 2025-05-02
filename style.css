@@ -5,9 +5,25 @@
     box-sizing: border-box;
 }
 body{
-    background: #222;
-    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-size: cover;
 }
+
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none; 
+}
+
+
 img{
     width: 30px;
     background: transparent;
@@ -15,13 +31,15 @@ img{
 #card{
     width: 100%;
     max-width: 470px;
-    background: linear-gradient(30deg, #09203F, #537895);
+    background: rgb(0, 0, 0, 0.1);
+    backdrop-filter: blur(15px);
     color: #fff;
     margin: 100px auto 30px;
     border-radius: 20px;
     padding: 40px 35px;
     text-align: center;
 }
+
 #search{
     width: 100%;
     display: flex;
@@ -50,6 +68,7 @@ img{
     border-radius: 50%;
     cursor: pointer;
 }
+
 #search button img{
     background: transparent;
     width: 20px;
@@ -94,11 +113,31 @@ img{
     justify-content: space-between;
     align-items: center;
 }
+@media (max-width: 470px) {
+    #search{
+        flex-direction: column;
+        gap: 15px;
+    }
+    #weather_summery_container{
+        flex-direction: column;
+        gap: 15px;
+    }
+    #weather_summery_info{
+        text-align: center;
+    }
+    /* .wind_humidity_summery_container{
+        flex-direction:column;
+        gap: 25px;
+    } */
+}
 .condition__item{
     display: flex;
     align-items: center;
     gap: 10px;
     text-align: left;
+    background: rgb(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 10px;
 }
 .condition__item img{
     width: 25px;
@@ -113,8 +152,8 @@ img{
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 15px;
-    margin-top: 25%;
+    gap: 10px;
+    margin-top: 20px;
 }
 #search_city_section img{
     height: 180px;
@@ -133,6 +172,27 @@ img{
     width: fit-content;
 }
 /* End of search city page */
+
+/* Location Permission Page */
+.location_permission{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+#location_btn{
+    border: 0px;
+    outline: 0px;
+    background: #ebfffc;
+    color: #242222;
+    padding: 10px 25px;
+    height: 40px;
+    border-radius: 30px;
+    font-size: 18px;
+}
+/* End of location permission page */
 
 /*Today's Forecast Section*/
 .Today_Forecast_container{
@@ -186,9 +246,9 @@ img{
 .forecast_item_container{
     margin-top: 30px;
     display: flex;
-    gap: 25px;
+    gap: 15px;
     overflow-x: scroll;
-    padding-bottom: 12px;
+    padding-bottom: 5px;
 }
 
 .forecast_item_container::-webkit-scrollbar{

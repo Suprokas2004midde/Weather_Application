@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const backgroundvideo = document.getElementById("bg-video");
   const inputcity = document.getElementById("input_city");
-  const searchbtn = document.getElementById("search_btn");
   const cityname = document.getElementById("city_name");
   const currentdate = document.getElementById("current_date");
   const currentday = document.getElementById("current_day");
@@ -11,13 +11,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const windval = document.getElementById("wind_value");
   const fellslikeval = document.getElementById("Fells_like_temp");
 
+  //Search Button
+  const locationbtn = document.getElementById("location_btn");
+  const searchbtn = document.getElementById("search_btn");
+
   //Forecast
-  const forecastcontainer = document.querySelector(".forecast_item_container");
-  const todayforecastcontainer = document.querySelector(
+  const todayforecastContainer = document.querySelector(
     ".Today_Forecast_container"
   );
+  const forecastcontainer = document.querySelector(".forecast_item_container");
 
-  //Weather-info && Not Found Section $$ Searchh city Section....
+  //Weather-info && Not Found Section $$ Search city Section....
   const weatherinfosection = document.getElementById("weather_info");
   const notfoundsection = document.getElementById("not_found_city_section");
   const searchcitysection = document.getElementById("search_city_section");
@@ -34,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Friday",
     "Saturday",
   ];
+
   const month = [
     "Jan",
     "Feb",
@@ -49,36 +54,56 @@ document.addEventListener("DOMContentLoaded", () => {
     "Dec",
   ];
 
-  function get_weather_icon(id) {
-    const date = new Date();
-    const hour = date.getHours();
-    if (id <= 232) return "storm.png";
-    if (id <= 321 && hour > 5 && hour < 16) return "drizzle2.png";
-    if (id <= 321 && (hour < 5 || hour > 16)) return "drizzle-night.png";
-    if (id <= 531) return "rain.png";
-    if (id <= 622) return "snow.png";
-    if (id <= 781) return "mist.png";
-    if (id == 800 && hour > 5 && hour < 16) return "sun.png";
-    if (id == 800 && (hour < 5 || hour > 16)) return "moon.png";
-    if (id <= 804 && (hour < 5 || hour > 16)) return "cloudy-night.png";
-    if (id <= 804 && hour > 5 && hour < 16) return "cloudy.png";
-  }
-
-  function get_weather_icon_forecast(id,time) {
+  //Function to get the weather icon....
+  function get_weather_icon_forecast(id, time) {
     const hour = time.getHours();
-    
     if (id <= 232) return "storm.png";
-    if (id <= 321 && hour > 5 && hour < 16) return "drizzle2.png";
-    if (id <= 321 && (hour < 5 || hour > 16)) return "drizzle-night.png";
-    if (id <= 531) return "rain.png";
-    if (id <= 622) return "snow.png";
-    if (id <= 781) return "mist.png";
-    if (id == 800 && hour > 5 && hour < 16) return "sun.png";
-    if (id == 800 && (hour < 5 || hour > 16)) return "moon.png";
-    if (id <= 804 && (hour < 5 || hour > 16)) return "cloudy-night.png";
-    if (id <= 804 && hour > 5 && hour < 16) return "cloudy.png";
+    else if (id <= 321 && hour > 5 && hour < 16) return "drizzle2.png";
+    else if (id <= 321 && (hour < 5 || hour > 16)) return "drizzle-night.png";
+    else if (id <= 531) return "rain.png";
+    else if (id <= 622) return "snow.png";
+    else if (id <= 781) return "mist.png";
+    else if (id == 800 && hour > 5 && hour < 16) return "sun.png";
+    else if (id == 800 && (hour < 5 || hour > 16)) return "moon.png";
+    else if (id <= 804 && (hour < 5 || hour > 16)) return "cloudy-night.png";
+    else if (id <= 804 && hour > 5 && hour < 16) return "cloudy.png";
   }
 
+  //Function to get the weather background video....
+  function get_weather_background(id, time) {
+    const hour = time.getHours();
+    if (id <= 232) return "Thunder_Storm.mp4";
+    else if (id <= 321 && hour > 5 && hour < 16) return "Shower.mp4";
+    else if (id <= 321 && (hour < 5 || hour > 16)) return "Shower.mp4";
+    else if (id <= 531) return "Shower.mp4";
+    else if (id <= 622) return "Snow_Fall.mp4";
+    else if (id <= 781) return "Mist_Fog.mp4";
+    else if (id == 800 && hour > 5 && hour < 16) return "Blue_Sky.mp4";
+    else if (id == 800 && (hour < 5 || hour > 16)) return "Clear_Night.mp4";
+    else if (id <= 804 && (hour < 5 || hour > 16)) return "Dark_Sky.mp4";
+    else if (id <= 804 && hour > 5 && hour < 16) return "Broken_cloud.mp4";
+  }
+
+  //Event Listener for location button....
+  locationbtn.addEventListener("click", async () => {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lan = position.coords.longitude;
+        try {
+          const fetched_data = await fetch_weather_coords(lat, lan, "weather");
+          Display_weather(fetched_data);
+        } catch (error) {
+          show_Display_Section(notfoundsection);
+        }
+      },
+      (err) => {
+        alert("Location permission denied...");
+      }
+    );
+  });
+
+  //Event Listener for search button....
   searchbtn.addEventListener("click", async () => {
     const city = inputcity.value.trim();
     if (city == "") return;
@@ -91,6 +116,17 @@ document.addEventListener("DOMContentLoaded", () => {
       show_Display_Section(notfoundsection);
     }
   });
+
+  //Function to fetch the weather data....
+  async function fetch_weather_coords(lat, lan, endpoint) {
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lan}&appid=${apiKey}&units=metric`;
+    const ini_res = await fetch(url);
+    if (!ini_res.ok) {
+      throw new Error(`Response Status: ${response.status}`);
+    }
+    const response = await ini_res.json();
+    return response;
+  }
 
   async function fetch_weather(endpoint, city) {
     //Fetch weather...
@@ -111,58 +147,68 @@ document.addEventListener("DOMContentLoaded", () => {
     currentday.innerHTML = `${week_day[date.getDay()]}`;
     displaytemp.innerHTML = `${Math.round(main.temp)} °C`;
     displaydescription.innerHTML = `${weather[0].description}`;
-    display_icons.src = `./images/${get_weather_icon(weather[0].id)}`;
+    display_icons.src = `./images/${get_weather_icon_forecast(
+      weather[0].id,
+      date
+    )}`;
     humidityval.innerHTML = `${main.humidity} %`;
     windval.innerHTML = `${wind.speed} M/s`;
     fellslikeval.innerHTML = `${Math.round(main.feels_like)} °C`;
+    backgroundvideo.src = `./Background_Videos/${get_weather_background(
+      weather[0].id,
+      date
+    )}`;
 
     await update_forecast_info(name);
     show_Display_Section(weatherinfosection);
   }
 
   async function update_forecast_info(city) {
-    //Fetching the data by calling the api... 
+    //Fetching the data by calling the api...
     const forecastdata = await fetch_weather("forecast", city);
 
     const Timetaken = "12:00:00";
     const today_date = new Date().toISOString().split("T")[0];
 
-    forecastcontainer.innerHTML = '';
-    todayforecastcontainer.innerHTML = '';
+    forecastcontainer.innerHTML = "";
+    todayforecastContainer.innerHTML = "";
 
-    forecastdata.list.slice(0,9).forEach(data=>{
-      update_today_forecast_item(data);
-    })
+    forecastdata.list.slice(0, 9).forEach((forecastweather) => {
+      update_Today_Forecast_Items(forecastweather);
+    });
+
     forecastdata.list.forEach((forecastweather) => {
       if (
         forecastweather.dt_txt.includes(Timetaken) &&
         !forecastweather.dt_txt.includes(today_date)
       ) {
         update_Forecast_Items(forecastweather);
-  
       }
     });
   }
 
-  function update_today_forecast_item(forecastdatails){
-    const {dt_txt:date, main, weather} = forecastdatails;
+  function update_Today_Forecast_Items(forecastdatails) {
+    const { dt_txt: date, main, weather } = forecastdatails;
 
     const datetaken = new Date(date);
     const timeOption = {
-      hour:'2-digit',
-      minute: '2-digit',
-    }
-
-    const resultTime = datetaken.toLocaleTimeString('en-US',timeOption);
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    };
+    const timeResult = datetaken.toLocaleTimeString("en-US", timeOption);
 
     const todayforecastitem = `
-      <div class="today_forecast_item">
-      <h5 class="item_Time">${resultTime}</h5>
-      <img src="./images/${get_weather_icon_forecast(weather[0].id,datetaken)}" alt="" class="today_icon"/>
-      <h5 class="Today_temp">${Math.round(main.temp)} °C</h5>
-      </div>
+       <div class="today_forecast_item">
+       <h5 class="item_Time">${timeResult}</h5>
+       <img src="./images/${get_weather_icon_forecast(
+         weather[0].id,
+         datetaken
+       )}" alt="" class="today_icon"/>
+       <h5 class="Today_temp">${Math.round(main.temp)} °C</h5>
+       </div>
     `;
-    todayforecastcontainer.insertAdjacentHTML('beforeend',todayforecastitem);
+    todayforecastContainer.insertAdjacentHTML("beforeend", todayforecastitem);
   }
 
   function update_Forecast_Items(forecastdatails) {
@@ -170,23 +216,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const datetaken = new Date(date);
     const dateOption = {
-       day: '2-digit',
-       month: 'short'
-    }
-    const dateResult = datetaken.toLocaleDateString('en-Us',dateOption);
-    
+      day: "2-digit",
+      month: "short",
+    };
+    const dateResult = datetaken.toLocaleDateString("en-Us", dateOption);
+
     const forecastItem = `
       <div class="forecast_item">
       <h5 class="item_date">${dateResult}</h5>
       <img src="./images/${get_weather_icon_forecast(
-        weather[0].id, datetaken
+        weather[0].id,
+        datetaken
       )}" alt="weather_icon" class="item_weather_summary">
       <h5 class="item_temp"> ${Math.round(main.temp)} °C</h5>
       <h4 class="item_description">${weather[0].description}</h4>
       </div>
     `;
 
-    forecastcontainer.insertAdjacentHTML('beforeend',forecastItem);
+    forecastcontainer.insertAdjacentHTML("beforeend", forecastItem);
   }
 
   function show_Display_Section(Section) {
