@@ -57,6 +57,7 @@ img{
     border-radius: 30px;
     margin-right: 15px;
     font-size: 18px;
+    flex-grow: 1;
 }
 #search button{
     background: #ebfffc;
@@ -112,12 +113,16 @@ img{
     justify-content: space-between;
     align-items: center;
 }
+
 @media (max-width: 470px) {
     #search{
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
         gap: 15px;
+    }
+    #search input{
+        margin-right: 0px;
     }
     #location_date_container{
         flex-wrap: wrap;
@@ -141,6 +146,7 @@ img{
         gap: 15px;
     }
 }
+
 .condition__item{
     display: flex;
     align-items: center;
@@ -199,7 +205,7 @@ img{
     background: #ebfffc;
     color: #242222;
     padding: 10px 25px;
-    height: 40px;
+    
     border-radius: 30px;
     font-size: 18px;
 }
