@@ -9,7 +9,7 @@ A simple and beautiful weather app built using **HTML**, **CSS**, and **JavaScri
 ## 🚀 Features
 
 - 🔍 Search the weather by city name
-- <img width="12" height="12" alt="image" src="https://github.com/user-attachments/assets/2d765165-cd51-4c4e-8a39-a511d28d709f" /> Search city by Location Permission
+- <img width="12" height="12" alt="image" src="https://github.com/user-attachments/assets/d4718a49-3fc3-42c2-8331-a513ca1ccd48" /> Search city by Location Permission
 - 🗓️ Displays current date and day
 - 🌡️ Shows temperature, weather condition, humidity, wind speed, and "feels like" temperature
 - 🌤️ Dynamically changes weather icons based on current weather
