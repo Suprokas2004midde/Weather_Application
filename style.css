@@ -1,7 +1,15 @@
+@font-face {
+    font-family: "gilroy";
+    src: url(./gilroy/Gilroy-Bold.ttf) format(truetype);
+}
+@font-face {
+    font-family: "frutiger";
+    src: url(./frutiger/Frutiger.ttf);
+}
 *{
     margin: 0px;
     padding: 0px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: gilroy,sans-serif;
     box-sizing: border-box;
 }
 body{
